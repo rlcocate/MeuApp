@@ -1,0 +1,42 @@
+<resources>
+
+    <string name="facebook_app_id" translatable="false">817081968459074</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb817081968459074</string>
+
+    <!-- General info-->
+    <string name="app_name">myApp</string>
+    <string name="no_data">No data to show</string>
+
+
+    <!-- activity_login -->
+    <string name="username">your login</string>
+    <string name="password">your password</string>
+    <string name="keep_connected">Keep connected</string>
+    <string name="connect">Connect</string>
+    <string name="login_user">your user</string>
+    <string name="login_pass">your pass</string>
+    <string name="login_required_user">User required</string>
+    <string name="login_required_password">Password required</string>
+    <string name="login_invalid_user">Invalid user</string>
+    <string name="login_invalid_password">Invalid password</string>
+    <string name="or">OR</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_navigation_drawer" translatable="false">Menu</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="save">Save</string>
+    <string name="value">value</string>
+    <string name="stores">Stores</string>
+    <string name="add_a_store">Add a store</string>
+    <string name="store_name">Store Name</string>
+    <string name="region_name">Region</string>
+    <string name="beer_name">Beer Name</string>
+    <string name="beer_value">Value</string>
+    <string name="about">About</string>
+    <string name="data_must_filled">All data must be filled!</string>
+    <string name="app_version" translatable="false">v.1.0</string>
+</resources>

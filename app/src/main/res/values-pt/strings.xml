@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">meuApp</string>
+    <string name="connect">Conectar</string>
+    <string name="keep_connected">Manter conectado</string>
+    <string name="no_data">Sem dados</string>
+    <string name="password">sua senha</string>
+    <string name="username">seu login</string>
+    <string name="login_invalid_user">Usuário inválido</string>
+    <string name="login_user">usuário</string>
+    <string name="action_settings">Configurações</string>
+    <string name="login_required_password">Informe a senha</string>
+    <string name="login_required_user">Informe o usuário</string>
+    <string name="login_pass">senha</string>
+    <string name="navigation_drawer_close">Fechar menu</string>
+    <string name="navigation_drawer_open">Abrir menu</string>
+    <string name="or">OU</string>
+    <string name="save">Salvar</string>
+    <string name="value">valor</string>
+    <string name="login_invalid_password">Senha inválida</string>
+    <string name="beer_value">Valor</string>
+    <string name="beer_name">Cerveja</string>
+    <string name="app_version"></string>
+    <string name="add_a_store">Novo estabelecimento</string>
+    <string name="about">Sobre</string>
+    <string name="data_must_filled">Todos os dados devem ser preenchidos</string>
+    <string name="region_name">Região</string>
+    <string name="store_name">Nome do Estabelecimento</string>
+    <string name="stores">Estabelecimentos</string>
+</resources>

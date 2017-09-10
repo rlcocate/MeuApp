@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:focusable="true"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_horizontal_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin">
+
+    <TextView
+        android:id="@+id/tvStoreName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:textStyle="bold"
+        tools:text="@string/store_name"
+        android:background="?android:selectableItemBackground"
+        android:fontFamily="sans-serif"
+        android:textColor="#333"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/tvBeerName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:textSize="12sp"
+        tools:text="@string/beer_name" />
+
+    <TextView
+        android:id="@+id/tvRegionName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/ibEditStore"
+        android:textSize="14sp"
+        tools:text="@string/region_name" />
+
+    <TextView
+        android:id="@+id/tvValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/ibEditStore"
+        android:textSize="12sp"
+        tools:text="@string/beer_value" />
+
+    <ImageButton
+        android:id="@+id/ibEditStore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/ibDelStore"
+        android:backgroundTint="#ffffff"
+        android:padding="8dp"
+        android:src="@drawable/pencil_24"/>
+
+    <ImageButton
+        android:id="@+id/ibDelStore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:backgroundTint="#ffffff"
+        android:padding="8dp"
+        android:src="@drawable/eraser_24" />
+
+</RelativeLayout>

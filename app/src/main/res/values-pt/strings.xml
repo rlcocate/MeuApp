@@ -20,11 +20,13 @@
     <string name="login_invalid_password">Senha inválida</string>
     <string name="beer_value">Valor</string>
     <string name="beer_name">Cerveja</string>
-    <string name="app_version"></string>
     <string name="add_a_store">Novo estabelecimento</string>
     <string name="about">Sobre</string>
     <string name="data_must_filled">Todos os dados devem ser preenchidos</string>
     <string name="region_name">Região</string>
     <string name="store_name">Nome do Estabelecimento</string>
     <string name="stores">Estabelecimentos</string>
+    <string name="error_get_coordinates">Erro ao obter coordenadas:</string>
+    <string name="title_activity_maps">Mapa da Breja</string>
+    <string name="best_beer_app">Conhece o melhor app pra encontrar sua breja?</string>
 </resources>

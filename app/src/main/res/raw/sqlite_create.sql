@@ -30,6 +30,17 @@ INSERT INTO Beer (name) VALUES ('Budweiser');
 INSERT INTO Beer (name) VALUES ('Heineken');
 INSERT INTO Beer (name) VALUES ('Eisenbahn');
 
+CREATE TABLE LocalAddress (
+    id          INTEGER     NOT NULL PRIMARY KEY AUTOINCREMENT,
+    storeId     INTEGER     NULL, -- Id Estabelecimento
+    streetName  VARCHAR(30) NULL, -- Rua do estabelecimento
+    complement  VARCHAR(30) NULL, -- Número e complemento da rua
+    latitude    DOUBLE      NULL, -- Latitude
+    longitude   DOUBLE      NULL, -- Longitude
+
+    FOREIGN KEY(storeId) REFERENCES Store (id)
+);
+
 CREATE TABLE Store (
 
     id          INTEGER     NOT NULL PRIMARY KEY AUTOINCREMENT,

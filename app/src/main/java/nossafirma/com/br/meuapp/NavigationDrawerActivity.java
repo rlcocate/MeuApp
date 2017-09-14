@@ -1,6 +1,7 @@
 package nossafirma.com.br.meuapp;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -34,8 +35,8 @@ public class NavigationDrawerActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                //openFragment(MapsActivity.class);
+                startActivity(new Intent(NavigationDrawerActivity.this, MapsActivity.class));
             }
         });
 
@@ -85,6 +86,8 @@ public class NavigationDrawerActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
 
+        Intent intent = null;
+
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
@@ -99,11 +102,24 @@ public class NavigationDrawerActivity extends AppCompatActivity
                 e.printStackTrace();
             }
         } else if (id == R.id.nav_share) {
+            intent = new Intent(Intent.ACTION_SEND);
+            String texto = getString(R.string.best_beer_app) +
+                           "#cademinhacerveja #whereismybeer";
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_TEXT, texto);
+            startActivity(intent);
 
         } else if (id == R.id.nav_send) {
-
+//            Uri uri = Uri.parse("tel:999999999");
+//            intent = new Intent(Intent.ACTION_CALL, uri);
+//            checkCallingPermission("Ligação");
+//            startActivity(intent);
+            Uri uri = Uri.parse("tel:32584994");
+            Intent intencao = new Intent(Intent.ACTION_CALL, uri);
+            checkPermission("ACTION_CALL",0,0);
+            startActivity(intencao);
         } else if (id == R.id.nav_exit) {
-            Intent intent = new Intent(this, LoginActivity.class);
+            intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
             this.finish();
         }

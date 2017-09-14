@@ -39,4 +39,11 @@
     <string name="about">About</string>
     <string name="data_must_filled">All data must be filled!</string>
     <string name="app_version" translatable="false">v.1.0</string>
+    <string name="title_activity_maps">Beer´s map</string>
+    <string name="error_get_coordinates">Error on get coordinates:</string>
+    <string name="new_store_question">Wanna mark new store here?</string>
+    <string name="best_beer_app">Do you know the best app to find your beer?</string>
+    <string name="street_name">Street Name</string>
+    <string name="complement">Complement</string>
+    <string name="store_deleted">Store deleted!</string>
 </resources>

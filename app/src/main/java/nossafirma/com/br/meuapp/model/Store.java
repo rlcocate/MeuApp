@@ -6,17 +6,21 @@ public class Store {
     private String name;
     private Region region;
     private Beer beer;
+    private LocalAddress localAddress;
     private Double beerValue;
 
-    public Store(){}
+    public Store() {
+    }
 
     public Store(Integer id, String name,
                  Region region, Beer beer,
-                 Double value){
+                 LocalAddress localAddress,
+                 Double value) {
         this.setId(id);
         this.setName(name);
         this.setRegion(region);
         this.setBeer(beer);
+        this.setLocalAddress(localAddress);
         this.setBeerValue(value);
     }
 
@@ -50,6 +54,12 @@ public class Store {
 
     public void setBeer(Beer beer) {
         this.beer = beer;
+    }
+
+    public LocalAddress getLocalAddress() {return localAddress;}
+
+    public void setLocalAddress(LocalAddress localAddress) {
+        this.localAddress = localAddress;
     }
 
     public Double getBeerValue() {

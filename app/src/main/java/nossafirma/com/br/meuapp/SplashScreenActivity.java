@@ -43,11 +43,6 @@ public class SplashScreenActivity extends AppCompatActivity {
 
         // Cria banco de dados.
         List<Login> logins = new LoginDAO(this).getAll();
-        Toast.makeText(this, "Criação completa do Banco!!", Toast.LENGTH_LONG).show();
-
-        // Sincronizando banco de dados.
-//        DBSync dbSync = new DBSync();
-//        dbSync.execute();
 
         // Carrega splash screen do app.
         loadSplash();

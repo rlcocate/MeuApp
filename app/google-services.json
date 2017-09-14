@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "759144654503",
+    "firebase_url": "https://extremefirebase.firebaseio.com",
+    "project_id": "extremefirebase",
+    "storage_bucket": "extremefirebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:759144654503:android:1f83aafaa675f3a6",
+        "android_client_info": {
+          "package_name": "nossafirma.com.br.meuapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "759144654503-tjd1dbqucad1p66ad7h5gsad28qkeeev.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOMRzelsY_UM482rK6oPsG19qpTr-UC5o"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

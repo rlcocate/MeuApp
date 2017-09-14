@@ -11,17 +11,23 @@
     android:paddingTop="@dimen/activity_vertical_margin">
 
     <TextView
+        android:id="@+id/tvIdStore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible" />
+
+    <TextView
         android:id="@+id/tvStoreName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:textStyle="bold"
-        tools:text="@string/store_name"
         android:background="?android:selectableItemBackground"
         android:fontFamily="sans-serif"
         android:textColor="#333"
-        android:textSize="14sp"/>
+        android:textSize="14sp"
+        android:textStyle="bold"
+        tools:text="@string/store_name" />
 
     <TextView
         android:id="@+id/tvBeerName"
@@ -57,7 +63,7 @@
         android:layout_toLeftOf="@+id/ibDelStore"
         android:backgroundTint="#ffffff"
         android:padding="8dp"
-        android:src="@drawable/pencil_24"/>
+        android:src="@drawable/pencil_24" />
 
     <ImageButton
         android:id="@+id/ibDelStore"

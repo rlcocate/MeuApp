@@ -1,10 +1,12 @@
 package nossafirma.com.br.meuapp.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Rodrigo on 26/08/2017.
  */
 
-public class Region {
+public class Region implements Serializable{
     private Integer id;
     private String initials;
     private String name;

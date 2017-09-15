@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import java.util.List;
 
-import nossafirma.com.br.meuapp.adapter.LoginAdapter;
 import nossafirma.com.br.meuapp.api.IRetrofitApi;
 import nossafirma.com.br.meuapp.api.RetrofitClient;
 import nossafirma.com.br.meuapp.model.Login;

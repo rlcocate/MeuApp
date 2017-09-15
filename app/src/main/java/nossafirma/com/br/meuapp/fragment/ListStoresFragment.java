@@ -3,14 +3,12 @@ package nossafirma.com.br.meuapp.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.util.List;
@@ -65,7 +63,7 @@ public class ListStoresFragment extends Fragment {
 
             return view;
         } catch (Exception e) {
-            Log.d("RV", e.getMessage());
+            Log.e("RV", e.getMessage());
         } finally {
             return view;
         }

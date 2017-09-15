@@ -95,6 +95,7 @@ public class StoreDAO {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = null;
         String q = query + " where lower(S.name) = '" + name.toLowerCase() + "' and lower(B.name) = '" + beerName.toLowerCase() + "'";
+//        String q = query + " where id = " + id; // lower(S.name) = '" + name.toLowerCase() + "' and lower(B.name) = '" + beerName.toLowerCase() + "'";
 
         try {
             cursor = db.rawQuery(q, null);
@@ -139,9 +140,9 @@ public class StoreDAO {
 
         long retRows = 0;
 
-        store = getBy(store.getName(), store.getBeer().getName());
+        //store = getBy(store.getName(), store.getBeer().getName());
 
-        if (store == null) {
+        if (store.getId() == 0) {
             retRows = db.insert(T_STORE, null, values);
         } else {
             retRows = db.update(T_STORE, values, C_ID + " = ?", new String[]{Integer.toString(store.getId())});

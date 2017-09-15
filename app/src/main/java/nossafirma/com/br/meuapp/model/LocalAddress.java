@@ -1,10 +1,12 @@
 package nossafirma.com.br.meuapp.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Rodrigo on 11/09/2017.
  */
 
-public class LocalAddress {
+public class LocalAddress implements Serializable {
 
     private Integer Id;
     private String streetName;

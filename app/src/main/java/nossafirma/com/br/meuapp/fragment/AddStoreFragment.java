@@ -1,9 +1,11 @@
 package nossafirma.com.br.meuapp.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.location.Address;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,7 @@ import org.w3c.dom.Text;
 
 import java.util.List;
 
+import nossafirma.com.br.meuapp.NavigationDrawerActivity;
 import nossafirma.com.br.meuapp.R;
 import nossafirma.com.br.meuapp.model.Beer;
 import nossafirma.com.br.meuapp.model.LocalAddress;
@@ -84,6 +87,29 @@ public class AddStoreFragment extends Fragment {
         // Preenchimento dos combos.
         getDomains();
 
+        Bundle arguments = getArguments();
+        Store store = null;
+        try {
+
+            if (arguments != null && arguments.containsKey("StoreData"))
+                store = (Store) getArguments().getSerializable("StoreData");
+
+            if (store != null) {
+                tvIdStore.setText(store.getId().toString());
+                etStoreName.setText(store.getName());
+                selectSpinnerValue(spRegions, store.getRegion().getName());
+                selectSpinnerValue(spBeers, store.getBeer().getName());
+                tvIdAddress.setText(store.getLocalAddress().getId().toString());
+                etStreetName.setText(store.getLocalAddress().getStreetName());
+                etComplement.setText(store.getLocalAddress().getComplement());
+                tvLatitude.setText(store.getLocalAddress().getLatitude().toString());
+                tvLongitude.setText(store.getLocalAddress().getLongitude().toString());
+                etValue.setText(store.getBeerValue().toString());
+            }
+        } catch (Exception e) {
+            Log.e("StoreSerializabled", e.getMessage());
+        }
+
         btSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,6 +119,17 @@ public class AddStoreFragment extends Fragment {
 
         // Inflate the layout for this fragment
         return view;
+    }
+
+    private void selectSpinnerValue(Spinner spinner, String myString)
+    {
+        int index = 0;
+        for(int i = 0; i < spinner.getCount(); i++){
+            if(spinner.getItemAtPosition(i).toString().equals(myString)){
+                spinner.setSelection(i);
+                break;
+            }
+        }
     }
 
     private void getDomains() {
@@ -116,6 +153,9 @@ public class AddStoreFragment extends Fragment {
         if (isValid()) {
 
             Store store = new Store();
+
+            if (!tvIdStore.getText().toString().equals(""))
+                store.setId(Integer.parseInt(tvIdStore.getText().toString()));
 
             store.setName(etStoreName.getText().toString());
             store.setRegion((Region) spRegions.getSelectedItem());
@@ -146,6 +186,7 @@ public class AddStoreFragment extends Fragment {
 
             String message = storeDao.save(store);
             if (message == "Success") {
+
                 // Alteração: Excluir endereço.
                 if (localAddress.getId() != null) {
                     rowsDeleted = addressDAO.delete(localAddress.getId());
@@ -154,6 +195,8 @@ public class AddStoreFragment extends Fragment {
                 message = addressDAO.save(localAddress, etStoreName.getText().toString());
             }
             Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+            getActivity().finish();
+            startActivity(new Intent(getActivity(), NavigationDrawerActivity.class));
         } else {
             Toast.makeText(context, R.string.data_must_filled, Toast.LENGTH_SHORT).show();
         }

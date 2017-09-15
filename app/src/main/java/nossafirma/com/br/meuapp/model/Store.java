@@ -1,6 +1,8 @@
 package nossafirma.com.br.meuapp.model;
 
-public class Store {
+import java.io.Serializable;
+
+public class Store implements Serializable {
 
     private Integer id;
     private String name;

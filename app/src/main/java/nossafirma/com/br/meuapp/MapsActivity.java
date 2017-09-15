@@ -1,6 +1,5 @@
 package nossafirma.com.br.meuapp;
 
-import android.location.Address;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -18,7 +17,6 @@ import java.util.List;
 
 import nossafirma.com.br.meuapp.model.Store;
 import nossafirma.com.br.meuapp.sqlite.StoreDAO;
-import nossafirma.com.br.meuapp.utils.CoordinateFinder;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -56,23 +54,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         List<Store> stores = new StoreDAO(this).getAll();
 
         final int size = stores.size();
-        for (int i = 0; i < size; i++)
-        {
+        for (int i = 0; i < size; i++) {
             Store store = stores.get(i);
-
-            CoordinateFinder coordinateFinder = new CoordinateFinder();
-            Address address = coordinateFinder.getCoordinates(this, store.getLocalAddress().getStreetName(), store.getLocalAddress().getComplement() == null ? "" : store.getLocalAddress().getComplement());
 
             LatLng coordinate = null;
 
-            if (address != null) {
-                coordinate = new LatLng(address.getLatitude(), address.getLongitude());
+            if (store != null) {
+                coordinate = new LatLng(store.getLocalAddress().getLatitude(), store.getLocalAddress().getLongitude());
                 mMap.addMarker(new MarkerOptions().position(coordinate).title(store.getName()));
-
             }
             //                    newLatLngZoom(LatLng, Zoom --> 2.0 a 21.0)
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coordinate, 15));
-
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coordinate, 12));
         }
     }
 

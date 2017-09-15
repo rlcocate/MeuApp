@@ -1,10 +1,10 @@
 package nossafirma.com.br.meuapp;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
@@ -30,6 +30,10 @@ public class NavigationDrawerActivity extends AppCompatActivity
         setContentView(R.layout.activity_navigation_drawer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        View backgroundimage = findViewById(R.id.flContent);
+        Drawable background = backgroundimage.getBackground();
+        background.setAlpha(60);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -88,40 +92,42 @@ public class NavigationDrawerActivity extends AppCompatActivity
 
         Intent intent = null;
 
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
+        try {
 
-        if (id == R.id.nav_stores) {
-            openFragment(ListStoresFragment.class);
-        } else if (id == R.id.nav_newStore) {
-            openFragment(AddStoreFragment.class);
-        } else if (id == R.id.nav_about) {
-            try {
-                startActivity(new Intent(NavigationDrawerActivity.this, AboutActivity.class));
-            } catch (Exception e) {
-                e.printStackTrace();
+            // Handle navigation view item clicks here.
+            int id = item.getItemId();
+
+            if (id == R.id.nav_stores) {
+                openFragment(ListStoresFragment.class);
+            } else if (id == R.id.nav_newStore) {
+                openFragment(AddStoreFragment.class);
+            } else if (id == R.id.nav_about) {
+                try {
+                    startActivity(new Intent(NavigationDrawerActivity.this, AboutActivity.class));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else if (id == R.id.nav_share) {
+                intent = new Intent(Intent.ACTION_SEND);
+                String texto = getString(R.string.best_beer_app) +
+                                "#cademinhacerveja #whereismybeer";
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_TEXT, texto);
+                startActivity(intent);
+
+            } else if (id == R.id.nav_send) {
+                Uri uri = Uri.parse("tel:999999999");
+                Intent intencao = new Intent(Intent.ACTION_CALL, uri);
+                checkPermission("ACTION_CALL", 0, 0);
+                startActivity(intencao);
+            } else if (id == R.id.nav_exit) {
+                intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
+                this.finish();
             }
-        } else if (id == R.id.nav_share) {
-            intent = new Intent(Intent.ACTION_SEND);
-            String texto = getString(R.string.best_beer_app) +
-                           "#cademinhacerveja #whereismybeer";
-            intent.setType("text/plain");
-            intent.putExtra(Intent.EXTRA_TEXT, texto);
-            startActivity(intent);
 
-        } else if (id == R.id.nav_send) {
-//            Uri uri = Uri.parse("tel:999999999");
-//            intent = new Intent(Intent.ACTION_CALL, uri);
-//            checkCallingPermission("Ligação");
-//            startActivity(intent);
-            Uri uri = Uri.parse("tel:32584994");
-            Intent intencao = new Intent(Intent.ACTION_CALL, uri);
-            checkPermission("ACTION_CALL",0,0);
-            startActivity(intencao);
-        } else if (id == R.id.nav_exit) {
-            intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
-            this.finish();
+        } catch (Exception e) {
+            Toast.makeText(getBaseContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -131,12 +137,21 @@ public class NavigationDrawerActivity extends AppCompatActivity
 
     private void openFragment(Class fragmentClass) {
         Fragment fragment = null;
+
+        fragment = getSupportFragmentManager().findFragmentById(R.id.flContent);
+        if (fragment != null)
+            getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+
         try {
             fragment = (Fragment) fragmentClass.newInstance();
         } catch (Exception e) {
             e.printStackTrace();
         }
         FragmentManager fragmentManager = getSupportFragmentManager();
+
+//        getSupportFragmentManager().popBackStack();
+//        fragmentManager.getFragments().remove(1);
+        //fragmentTransation.remove(seuFragment).commit()
         fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
     }
 }

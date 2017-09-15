@@ -1,39 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
+    <group
+        android:checkableBehavior="single"
+        android:visible="true">
         <item
             android:id="@+id/nav_stores"
             android:icon="@drawable/store_shop"
-            android:title="@string/stores" />
+            android:title="@string/stores"
+            android:visible="true" />
         <item
             android:id="@+id/nav_newStore"
             android:icon="@drawable/new_store"
-            android:title="@string/add_a_store" />
+            android:title="@string/add_a_store"
+            android:visible="true" />
         <!--<item-->
-            <!--android:id="@+id/nav_slideshow"-->
-            <!--android:icon="@drawable/ic_menu_slideshow"-->
-            <!--android:title="Slideshow" />-->
+        <!--android:id="@+id/nav_slideshow"-->
+        <!--android:icon="@drawable/ic_menu_slideshow"-->
+        <!--android:title="Slideshow" />-->
         <!--<item-->
-            <!--android:id="@+id/nav_manage"-->
-            <!--android:icon="@drawable/ic_menu_manage"-->
-            <!--android:title="Tools" />-->
+        <!--android:id="@+id/nav_manage"-->
+        <!--android:icon="@drawable/ic_menu_manage"-->
+        <!--android:title="Tools" />-->
         <item
             android:id="@+id/nav_about"
             android:icon="@drawable/about"
-            android:title="@string/about" />
+            android:title="@string/about"
+            android:visible="true" />
     </group>
 
-    <item android:title="Communicate">
+    <item
+        android:title="Communicate"
+        android:visible="true">
         <menu>
             <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:title="@string/share"
+                android:visible="true" />
             <item
                 android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:icon="@drawable/phone"
+                android:title="@string/call_us"
+                android:visible="true" />
         </menu>
     </item>
 

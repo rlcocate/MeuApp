@@ -8,7 +8,6 @@ import android.widget.Toast;
 import java.util.List;
 
 import nossafirma.com.br.meuapp.R;
-import nossafirma.com.br.meuapp.model.LocalAddress;
 
 /**
  * Created by Rodrigo on 10/09/2017.

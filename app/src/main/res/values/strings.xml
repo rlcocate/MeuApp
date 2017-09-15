@@ -29,7 +29,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="save">Save</string>
-    <string name="value">value</string>
+    <string name="value">Value</string>
     <string name="stores">Stores</string>
     <string name="add_a_store">Add a store</string>
     <string name="store_name">Store Name</string>
@@ -46,4 +46,7 @@
     <string name="street_name">Street Name</string>
     <string name="complement">Complement</string>
     <string name="store_deleted">Store deleted!</string>
+    <string name="share">Share!</string>
+    <string name="call_us">Call Us</string>
+    <string name="where_s_my_beer">Where\'s my beer?</string>
 </resources>

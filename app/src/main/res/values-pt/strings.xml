@@ -16,7 +16,7 @@
     <string name="navigation_drawer_open">Abrir menu</string>
     <string name="or">OU</string>
     <string name="save">Salvar</string>
-    <string name="value">valor</string>
+    <string name="value">Valor</string>
     <string name="login_invalid_password">Senha inválida</string>
     <string name="beer_value">Valor</string>
     <string name="beer_name">Cerveja</string>
@@ -29,4 +29,10 @@
     <string name="error_get_coordinates">Erro ao obter coordenadas:</string>
     <string name="title_activity_maps">Mapa da Breja</string>
     <string name="best_beer_app">Conhece o melhor app pra encontrar sua breja?</string>
+    <string name="complement">Complemento</string>
+    <string name="new_store_question">Quer marcar um novo estabelecimento?</string>
+    <string name="store_deleted">Estabelecimento excluído!</string>
+    <string name="street_name">Nome da Rua</string>
+    <string name="call_us">Fale com a gente</string>
+    <string name="share">Compartilhe!</string>
 </resources>

@@ -128,7 +128,7 @@ public class AddressDAO {
         Integer rows = 0;
         try {
             db = dbHelper.getWritableDatabase();
-            rows = db.delete(T_ADDRESS, C_STORE_ID + " = ?", new String[]{Integer.toString(id)});
+            rows = db.delete(T_ADDRESS, C_ID + " = ?", new String[]{Integer.toString(id)});
         } catch (Exception e) {
             Log.e("DeleteLocalAddress", e.getMessage());
         }

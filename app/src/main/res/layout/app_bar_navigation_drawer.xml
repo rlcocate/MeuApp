@@ -26,7 +26,8 @@
         android:id="@+id/flContent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="?attr/actionBarSize"/>
+        android:layout_marginTop="?attr/actionBarSize"
+        android:background="@drawable/microcervejasnacionais1" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

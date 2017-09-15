@@ -1,17 +1,13 @@
 package nossafirma.com.br.meuapp.adapter;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AlertDialog;
+import android.os.Bundle;
+
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Interpolator;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -19,12 +15,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.Tasks;
-
-import org.w3c.dom.Text;
-
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import nossafirma.com.br.meuapp.NavigationDrawerActivity;
 import nossafirma.com.br.meuapp.R;
@@ -65,15 +56,6 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
             beerValue = (TextView) view.findViewById(R.id.tvValue);
             ibEdit = (ImageButton) view.findViewById(R.id.ibEditStore);
             ibDelete = (ImageButton) view.findViewById(R.id.ibDelStore);
-
-            ibDelete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    deleteStore(Integer.parseInt(storeId.getText().toString()));
-                    notifyItemRemoved(getAdapterPosition());
-                    Toast.makeText(_context, R.string.store_deleted, Toast.LENGTH_SHORT).show();
-                }
-            });
         }
     }
 
@@ -89,7 +71,7 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
     }
 
     @Override
-    public void onBindViewHolder(StoreViewHolder viewHolder, int position) {
+    public void onBindViewHolder(final StoreViewHolder viewHolder, final int position) {
 
         final Store store = this._stores.get(position);
 
@@ -103,15 +85,29 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
             @Override
             public void onClick(View view) {
                 NavigationDrawerActivity nav = (NavigationDrawerActivity) _context;
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("StoreData", store);
+
                 AddStoreFragment addStoreFragment = new AddStoreFragment();
+                addStoreFragment.setArguments(bundle);
 
                 nav.getSupportFragmentManager().beginTransaction()
                         .replace(R.id.flContent, addStoreFragment, "findThisFragment")
                         .addToBackStack(null)
                         .commit();
-                loadDataForEdit(store);
             }
         });
+
+        viewHolder.ibDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteStore(Integer.parseInt(viewHolder.storeId.getText().toString()));
+                _stores.remove(position);
+                notifyDataSetChanged();
+                Toast.makeText(_context, R.string.store_deleted, Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     @Override
@@ -138,49 +134,4 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
 
         return (rows > 0 ? "Success" : "Failed to delete row");
     }
-
-    private void loadDataForEdit(Store store) {
-        LayoutInflater inflater = LayoutInflater.from(_context);
-        View view = inflater.inflate(R.layout.fragment_add_store, null);
-
-        final Spinner spRegions = (Spinner) view.findViewById(R.id.spRegions);
-        final Spinner spBeers = (Spinner) view.findViewById(R.id.spBeers);
-
-        List<Region> regions = new RegionDAO(_context).getAll();
-
-        ArrayAdapter<Region> regionAdapter = new ArrayAdapter<Region>(_context, android.R.layout.simple_spinner_item, regions);
-        regionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spRegions.setAdapter(regionAdapter);
-
-        List<Beer> beers = new BeerDAO(_context).getAll();
-
-        ArrayAdapter<Beer> beerAdapter = new ArrayAdapter<Beer>(_context, android.R.layout.simple_spinner_item, beers);
-        beerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spBeers.setAdapter(beerAdapter);
-
-        final TextView tvIdStore = (TextView) view.findViewById(R.id.tvIdStore);
-        final EditText etStoreName = (EditText) view.findViewById(R.id.etStoreName);
-        final TextView tvIdAddress = (TextView) view.findViewById(R.id.tvIdAddress);
-        final EditText etStreetName = (EditText) view.findViewById(R.id.etStreetName);
-        final EditText etComplement = (EditText) view.findViewById(R.id.etComplement);
-        final TextView tvLatitude = (TextView) view.findViewById(R.id.tvLatitude);
-        final TextView tvLongitude = (TextView) view.findViewById(R.id.tvLongitude);
-        final EditText etValue = (EditText) view.findViewById(R.id.etValue);
-
-        try {
-            if (store != null) {
-                tvIdStore.setText(store.getId().toString());
-                etStoreName.setText(store.getName());
-                tvIdAddress.setText(store.getLocalAddress().getId().toString());
-                etStreetName.setText(store.getLocalAddress().getStreetName());
-                etComplement.setText(store.getLocalAddress().getComplement());
-                tvLatitude.setText(store.getLocalAddress().getLatitude().toString());
-                tvLongitude.setText(store.getLocalAddress().getLongitude().toString());
-                etValue.setText(store.getBeerValue().toString());
-            }
-        } catch (Exception e) {
-            Log.e("ViewHolder", e.getMessage());
-        }
-    }
-
 }

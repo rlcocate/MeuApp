@@ -16,8 +16,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
 import nossafirma.com.br.meuapp.NavigationDrawerActivity;
@@ -30,7 +28,7 @@ import nossafirma.com.br.meuapp.sqlite.AddressDAO;
 import nossafirma.com.br.meuapp.sqlite.BeerDAO;
 import nossafirma.com.br.meuapp.sqlite.RegionDAO;
 import nossafirma.com.br.meuapp.sqlite.StoreDAO;
-import nossafirma.com.br.meuapp.utils.CoordinateFinder;
+import nossafirma.com.br.meuapp.utils.Utils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -73,10 +71,10 @@ public class AddStoreFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_add_store, container, false);
 
         tvIdStore = (TextView) view.findViewById(R.id.tvIdStore);
+        tvIdAddress = (TextView) view.findViewById(R.id.tvIdAddress);
         etStoreName = (EditText) view.findViewById(R.id.etStoreName);
         spRegions = (Spinner) view.findViewById(R.id.spRegions);
         spBeers = (Spinner) view.findViewById(R.id.spBeers);
-        tvIdAddress = (TextView) view.findViewById(R.id.tvIdAddress);
         etStreetName = (EditText) view.findViewById(R.id.etStreetName);
         etComplement = (EditText) view.findViewById(R.id.etComplement);
         tvLatitude = (TextView) view.findViewById(R.id.tvLatitude);
@@ -121,11 +119,10 @@ public class AddStoreFragment extends Fragment {
         return view;
     }
 
-    private void selectSpinnerValue(Spinner spinner, String myString)
-    {
+    private void selectSpinnerValue(Spinner spinner, String myString) {
         int index = 0;
-        for(int i = 0; i < spinner.getCount(); i++){
-            if(spinner.getItemAtPosition(i).toString().equals(myString)){
+        for (int i = 0; i < spinner.getCount(); i++) {
+            if (spinner.getItemAtPosition(i).toString().equals(myString)) {
                 spinner.setSelection(i);
                 break;
             }
@@ -176,22 +173,24 @@ public class AddStoreFragment extends Fragment {
                 localAddress.setComplement(complement);
             }
 
-            CoordinateFinder coordinateFinder = new CoordinateFinder();
-            Address retAddress = coordinateFinder.getCoordinates(context, streetName, complement);
+            Utils utils = new Utils();
+            if (utils.isNetworkAvaliable(context)) {
+                Address retAddress = utils.getCoordinates(context, streetName, complement);
 
-            localAddress.setLatitude(retAddress.getLatitude());
-            localAddress.setLongitude(retAddress.getLongitude());
-
-            Integer rowsDeleted = 0;
-
-            String message = storeDao.save(store);
-            if (message == "Success") {
-
-                // Alteração: Excluir endereço.
-                if (localAddress.getId() != null) {
-                    rowsDeleted = addressDAO.delete(localAddress.getId());
+                if (retAddress != null) {
+                    localAddress.setLatitude(retAddress.getLatitude());
+                    localAddress.setLongitude(retAddress.getLongitude());
                 }
-                localAddress.setStoreId(storeDao.getBy(store.getName(), store.getBeer().getName()).getId());
+            }
+
+            String message = "";
+            Long rows;
+            Integer rowsDel = 0;
+
+            rows = storeDao.save(store);
+
+            if (rows > 0) {
+                localAddress.setStoreId(store.getId() == null ? rows : store.getId());
                 message = addressDAO.save(localAddress, etStoreName.getText().toString());
             }
             Toast.makeText(context, message, Toast.LENGTH_SHORT).show();

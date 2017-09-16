@@ -30,14 +30,6 @@ public class StoreDAO {
     public static final String T_REGION = "Region";
     public static final String T_ADDRESS = "LocalAddress";
 
-    private String query =
-    "SELECT S.*, R.initials as InitRegionName, R.name as RegionName, B.name as BeerName, " +
-            " A.id as AddressId, A.streetName, A.complement, A.latitude, A.longitude " +
-            "  FROM " + T_STORE + " as S " +
-            " LEFT OUTER JOIN " + T_ADDRESS + " as A ON (S.id " + " = A.storeId)" +
-            " LEFT OUTER JOIN " + T_REGION + " as R ON (S." + C_REGION_ID + " = R.id)" +
-            " LEFT OUTER JOIN " + T_BEER + "   as B ON (S." + C_BEER_ID + "   = B.id)";
-
     public static final String C_ID = "id"; // Identity
     public static final String C_NAME = "name";
     public static final String C_REGION_ID = "regionId";
@@ -51,6 +43,14 @@ public class StoreDAO {
     public static final String C_COMPLEMENT = "complement";
     public static final String C_LATITUDE = "latitude";
     public static final String C_LONGITUDE = "longitude";
+
+    private String query =
+            "SELECT S.*, R.initials as InitRegionName, R.name as RegionName, B.name as BeerName, " +
+                    " A.id as AddressId, A.streetName, A.complement, A.latitude, A.longitude " +
+                    "  FROM " + T_STORE + " as S " +
+                    " INNER JOIN " + T_ADDRESS + " as A ON (S.id " + " = A.storeId)" +
+                    " INNER JOIN " + T_REGION + " as R ON (S." + C_REGION_ID + " = R.id)" +
+                    " INNER JOIN " + T_BEER + " as B ON (S." + C_BEER_ID + "   = B.id)";
 
     public StoreDAO(Context context) {
         dbHelper = new DBHelper(context);
@@ -82,7 +82,7 @@ public class StoreDAO {
                 store.setName(cursor.getString(cursor.getColumnIndex(C_NAME)));
                 store.setRegion(new Region(cursor.getInt(cursor.getColumnIndex(C_REGION_ID)), cursor.getString(cursor.getColumnIndex(C_INIT_REGION_NAME)), cursor.getString(cursor.getColumnIndex(C_REGION_NAME))));
                 store.setBeer(new Beer(cursor.getInt(cursor.getColumnIndex(C_BEER_ID)), cursor.getString(cursor.getColumnIndex(C_BEER_NAME))));
-                store.setLocalAddress(new LocalAddress(cursor.getInt(cursor.getColumnIndex(C_ADDRESS_ID)), cursor.getString(cursor.getColumnIndex(C_STREET_NAME)), cursor.getString(cursor.getColumnIndex(C_COMPLEMENT)), cursor.getDouble(cursor.getColumnIndex(C_LATITUDE)), cursor.getDouble(cursor.getColumnIndex(C_LONGITUDE)), cursor.getInt(cursor.getColumnIndex(C_ID))));
+                store.setLocalAddress(new LocalAddress(cursor.getInt(cursor.getColumnIndex(C_ADDRESS_ID)), cursor.getString(cursor.getColumnIndex(C_STREET_NAME)), cursor.getString(cursor.getColumnIndex(C_COMPLEMENT)), cursor.getDouble(cursor.getColumnIndex(C_LATITUDE)), cursor.getDouble(cursor.getColumnIndex(C_LONGITUDE)), cursor.getLong(cursor.getColumnIndex(C_ID))));
                 store.setBeerValue(cursor.getDouble(cursor.getColumnIndex(C_BEER_VALUE)));
                 stores.add(store);
             } while (cursor.moveToNext());
@@ -128,7 +128,7 @@ public class StoreDAO {
         return store;
     }
 
-    public String save(Store store) {
+    public Long save(Store store) {
 
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -138,18 +138,16 @@ public class StoreDAO {
         values.put(C_BEER_ID, store.getBeer().getId());
         values.put(C_BEER_VALUE, store.getBeerValue());
 
-        long retRows = 0;
+        Long retCode = Long.valueOf(0);
 
-        //store = getBy(store.getName(), store.getBeer().getName());
-
-        if (store.getId() == 0) {
-            retRows = db.insert(T_STORE, null, values);
+        if (store.getId() == null) {
+            retCode = db.insert(T_STORE, null, values);
         } else {
-            retRows = db.update(T_STORE, values, C_ID + " = ?", new String[]{Integer.toString(store.getId())});
+            retCode = Long.valueOf(db.update(T_STORE, values, C_ID + " = ?", new String[]{Integer.toString(store.getId())}));
         }
         db.close();
 
-        return (retRows > 0) ? "Success" : "Not saved";
+        return (retCode > 0) ? retCode : 0;
     }
 
     public Integer delete(Integer id) {

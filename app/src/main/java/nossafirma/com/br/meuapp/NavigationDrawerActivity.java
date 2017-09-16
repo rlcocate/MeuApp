@@ -148,10 +148,6 @@ public class NavigationDrawerActivity extends AppCompatActivity
             e.printStackTrace();
         }
         FragmentManager fragmentManager = getSupportFragmentManager();
-
-//        getSupportFragmentManager().popBackStack();
-//        fragmentManager.getFragments().remove(1);
-        //fragmentTransation.remove(seuFragment).commit()
         fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
     }
 }

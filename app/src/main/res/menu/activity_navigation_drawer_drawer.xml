@@ -14,14 +14,6 @@
             android:icon="@drawable/new_store"
             android:title="@string/add_a_store"
             android:visible="true" />
-        <!--<item-->
-        <!--android:id="@+id/nav_slideshow"-->
-        <!--android:icon="@drawable/ic_menu_slideshow"-->
-        <!--android:title="Slideshow" />-->
-        <!--<item-->
-        <!--android:id="@+id/nav_manage"-->
-        <!--android:icon="@drawable/ic_menu_manage"-->
-        <!--android:title="Tools" />-->
         <item
             android:id="@+id/nav_about"
             android:icon="@drawable/about"
@@ -30,7 +22,7 @@
     </group>
 
     <item
-        android:title="Communicate"
+        android:title="@string/communicate"
         android:visible="true">
         <menu>
             <item
@@ -46,11 +38,12 @@
         </menu>
     </item>
 
-    <item android:title="Exit">
+    <item
+        android:title=""
+        android:visible="true">
         <item
             android:id="@+id/nav_exit"
             android:icon="@drawable/exit"
-            android:title="Exit" />
+            android:title="@string/exit" />
     </item>
-
 </menu>

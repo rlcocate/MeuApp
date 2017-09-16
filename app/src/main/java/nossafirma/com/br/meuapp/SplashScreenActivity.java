@@ -19,6 +19,7 @@ import nossafirma.com.br.meuapp.api.RetrofitClient;
 import nossafirma.com.br.meuapp.model.Login;
 import nossafirma.com.br.meuapp.sqlite.DBHelper;
 import nossafirma.com.br.meuapp.sqlite.LoginDAO;
+import nossafirma.com.br.meuapp.utils.Utils;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -31,6 +32,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     private IRetrofitApi retrofitApi;
     private SharedPreferences preferences = null;
     private DBHelper dbHelper = null;
+    private Login login = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,30 +73,42 @@ public class SplashScreenActivity extends AppCompatActivity {
 
     private void loadData() {
 
-        retrofitApi = RetrofitClient.getApiData();
+        Utils utils = new Utils();
 
-        retrofitApi.getDefaultAutentication().enqueue(new Callback<Login>() {
-            @Override
-            public void onResponse(Call<Login> call, Response<Login> response) {
-                if (response.isSuccessful()) {
+        if (utils.isNetworkAvaliable(this)) {
 
-                    // Retorno da WebApi.
-                    Login login = response.body();
+            retrofitApi = RetrofitClient.getApiData();
 
-                    // Armazena valores padrão de login.
-                    createLoginDefaultValues(login);
+            retrofitApi.getDefaultAutentication().enqueue(new Callback<Login>() {
+                @Override
+                public void onResponse(Call<Login> call, Response<Login> response) {
+                    if (response.isSuccessful()) {
+
+                        // Retorno da WebApi.
+                        login = response.body();
+
+                        // Armazena valores padrão de login.
+                        createLoginDefaultValues(login);
+                    }
+
+                    loadedData = true;
+
                 }
 
-                loadedData = true;
+                @Override
+                public void onFailure(Call<Login> call, Throwable t) {
+                    Log.i("ERRO", t.getStackTrace().toString());
+                    Toast.makeText(SplashScreenActivity.this, "Api Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
 
-            }
+        } else {
+            login = new Login();
+            login.setUsuario("android");
+            login.setSenha("mobile");
+            Toast.makeText(SplashScreenActivity.this, R.string.check_internet_connection, Toast.LENGTH_LONG).show();
+        }
 
-            @Override
-            public void onFailure(Call<Login> call, Throwable t) {
-                Log.i("ERRO", t.getStackTrace().toString());
-                Toast.makeText(SplashScreenActivity.this, "Api Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
     }
 
     private void createLoginDefaultValues(Login login) {

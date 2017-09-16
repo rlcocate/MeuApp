@@ -40,9 +40,12 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
     public class StoreViewHolder extends RecyclerView.ViewHolder {
 
         public TextView storeId;
+        public TextView addressId;
         public TextView storeName;
         public TextView regionName;
         public TextView beerName;
+        public TextView streetName;
+        public TextView complement;
         public TextView beerValue;
         public ImageButton ibEdit;
         public ImageButton ibDelete;
@@ -50,10 +53,13 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
         public StoreViewHolder(View view) {
             super(view);
             storeId = (TextView) view.findViewById(R.id.tvIdStore);
+            addressId = (TextView) view.findViewById(R.id.tvIdAddress);
             storeName = (TextView) view.findViewById(R.id.tvStoreName);
             regionName = (TextView) view.findViewById(R.id.tvRegionName);
             beerName = (TextView) view.findViewById(R.id.tvBeerName);
             beerValue = (TextView) view.findViewById(R.id.tvValue);
+            streetName = (TextView) view.findViewById(R.id.tvStreetName);
+            complement = (TextView) view.findViewById(R.id.tvComplement);
             ibEdit = (ImageButton) view.findViewById(R.id.ibEditStore);
             ibDelete = (ImageButton) view.findViewById(R.id.ibDelStore);
         }
@@ -76,9 +82,14 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
         final Store store = this._stores.get(position);
 
         viewHolder.storeId.setText(store.getId().toString());
+//        if (store.getLocalAddress().getId() != null)
+//            viewHolder.addressId.setText(store.getLocalAddress().getId().toString());
         viewHolder.storeName.setText(store.getName());
         viewHolder.regionName.setText(store.getRegion().getName());
         viewHolder.beerName.setText(store.getBeer().getName());
+        viewHolder.streetName.setText(store.getLocalAddress().getStreetName());
+        if (store.getLocalAddress().getComplement() != null)
+            viewHolder.complement.setText(store.getLocalAddress().getComplement());
         viewHolder.beerValue.setText(store.getBeerValue().toString());
 
         viewHolder.ibEdit.setOnClickListener(new View.OnClickListener() {

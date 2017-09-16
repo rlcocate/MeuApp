@@ -13,9 +13,9 @@ public class LocalAddress implements Serializable {
     private String complement; // Número e complementos
     private Double latitude;
     private Double longitude;
-    private Integer storeId;
+    private Long storeId;
 
-    public LocalAddress(Integer id, String streetName, String complement, Double latitude, Double longitude, Integer storeId) {
+    public LocalAddress(Integer id, String streetName, String complement, Double latitude, Double longitude, Long storeId) {
         Id = id;
         this.streetName = streetName;
         this.complement = complement;
@@ -67,11 +67,11 @@ public class LocalAddress implements Serializable {
         this.longitude = longitude;
     }
 
-    public Integer getStoreId() {
+    public Long getStoreId() {
         return storeId;
     }
 
-    public void setStoreId(Integer storeId) {
+    public void setStoreId(Long storeId) {
         this.storeId = storeId;
     }
 }

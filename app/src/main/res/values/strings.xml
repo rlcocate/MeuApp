@@ -49,4 +49,7 @@
     <string name="share">Share!</string>
     <string name="call_us">Call Us</string>
     <string name="where_s_my_beer">Where\'s my beer?</string>
+    <string name="communicate">Communicate</string>
+    <string name="check_internet_connection">Check internet connection!</string>
+    <string name="exit">Exit</string>
 </resources>

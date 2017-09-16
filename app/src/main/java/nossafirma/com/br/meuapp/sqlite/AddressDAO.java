@@ -54,7 +54,7 @@ public class AddressDAO {
                 address = new LocalAddress();
                 address.setId(cursor.getInt(cursor.getColumnIndex(C_ID)));
                 address.setStreetName(cursor.getString(cursor.getColumnIndex(C_STREET_NAME)));
-                address.setStoreId(cursor.getInt(cursor.getColumnIndex(C_STORE_ID)));
+                address.setStoreId(cursor.getLong(cursor.getColumnIndex(C_STORE_ID)));
                 address.setComplement(cursor.getString(cursor.getColumnIndex(C_COMPLEMENT)));
                 address.setLatitude(cursor.getDouble(cursor.getColumnIndex(C_LATITUDE)));
                 address.setLongitude(cursor.getDouble(cursor.getColumnIndex(C_LONGITUDE)));
@@ -83,7 +83,7 @@ public class AddressDAO {
                 address = new LocalAddress();
                 address.setId(cursor.getInt(cursor.getColumnIndex(C_ID)));
                 address.setStreetName(cursor.getString(cursor.getColumnIndex(C_STREET_NAME)));
-                address.setStoreId(cursor.getInt(cursor.getColumnIndex(C_STORE_ID)));
+                address.setStoreId(cursor.getLong(cursor.getColumnIndex(C_STORE_ID)));
                 address.setComplement(cursor.getString(cursor.getColumnIndex(C_COMPLEMENT)));
                 address.setLatitude(cursor.getDouble(cursor.getColumnIndex(C_LATITUDE)));
                 address.setLongitude(cursor.getDouble(cursor.getColumnIndex(C_LONGITUDE)));
@@ -106,12 +106,11 @@ public class AddressDAO {
 
         long retRows = 0;
 
-        address = getBy(address.getStreetName(), storeName);
         try {
-            if (address == null) {
+            if (address.getId() == null) {
                 retRows = db.insert(T_ADDRESS, null, values);
             } else {
-                retRows = db.update(T_ADDRESS, values, C_ID + " = ?", new String[]{Integer.toString(address.getId())});
+                retRows = Long.valueOf(db.update(T_ADDRESS, values, C_ID + " = ?", new String[]{Integer.toString(address.getId())}));
             }
         } catch (Exception e) {
             Log.e("SaveLocalAddress", e.getMessage());

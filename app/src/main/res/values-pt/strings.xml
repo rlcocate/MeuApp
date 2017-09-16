@@ -35,4 +35,8 @@
     <string name="street_name">Nome da Rua</string>
     <string name="call_us">Fale com a gente</string>
     <string name="share">Compartilhe!</string>
+    <string name="communicate">Comunicação</string>
+    <string name="check_internet_connection">Verifique a conexão com a internet!</string>
+    <string name="exit">Sair</string>
+    <string name="where_s_my_beer">Cadê minha cerveja?</string>
 </resources>

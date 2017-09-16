@@ -27,7 +27,7 @@ public class Store implements Serializable {
     }
 
     public Integer getId() {
-        return id == null ? 0 : id;
+        return id;
     }
 
     public void setId(Integer id) {
